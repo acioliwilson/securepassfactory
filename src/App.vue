@@ -13,16 +13,34 @@
         </div>
         <p class="default-label">Shield yourself from hackers: Use strong, generated passwords.</p>
         <p class="marked-label" v-if="errorMsg">
-            <span>Max lenght: 20 characters</span>
-            <button class="close-max-lenght" @click="hideErrorMsg">
+            <span>Max length: 24 characters</span>
+            <button class="close-max-length" @click="hideErrorMsg">
                 <ion-icon name="close-outline"></ion-icon>
             </button>
         </p>
         <div class="d-flex gap-4 justify-content-center container-flex">
-            <div class="pass-lenght">
+            <div class="pass-length">
                 <div class="form-group">
-                    <label for="lenght">Password Lenght</label>
-                    <input type="number" class="default-form ubuntu-mono-regular" placeholder="12" v-model="passwordLength" min="1" max="20">
+                    <label for="length">Password Length: <strong style="color: var(--primary);">{{ passwordLength }}</strong></label>
+                    <input type="range" class="ubuntu-mono-regular" style="margin-bottom: 5px;" v-model="passwordLength" min="1" max="24">
+                    <div class="checkbox-group">
+                        <label>
+                            <input type="checkbox" v-model="includeUppercase">
+                            Include Uppercase
+                        </label>
+                        <label>
+                            <input type="checkbox" v-model="includeLowercase">
+                            Include Lowercase
+                        </label>
+                        <label>
+                            <input type="checkbox" v-model="includeNumbers">
+                            Include Numbers
+                        </label>
+                        <label>
+                            <input type="checkbox" v-model="includeSpecialChars">
+                            Include Special Characters
+                        </label>
+                    </div>
                     <button class="primary-btn ubuntu-mono-bold" type="button" @click="generatePassword">
                         Generate Password
                     </button>
@@ -48,6 +66,8 @@
 </div>
 </template>
 
+    
+    
 <script>
 export default {
     data() {
@@ -60,17 +80,31 @@ export default {
             },
             isCopied: false,
             errorMsg: false,
+            includeUppercase: true,
+            includeLowercase: true,
+            includeNumbers: true,
+            includeSpecialChars: true
         }
     },
     methods: {
         generatePassword() {
             // Ensure password length does not exceed 20 characters
-            if (this.passwordLength > 20) {
-                this.passwordLength = 20
+            if (this.passwordLength > 24) {
+                this.passwordLength = 24
                 this.errorMsg = !this.errorMsg
             }
 
-            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+~`|}{[]:;?><,./-=';
+            let chars = '';
+            if (this.includeUppercase) chars += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            if (this.includeLowercase) chars += 'abcdefghijklmnopqrstuvwxyz';
+            if (this.includeNumbers) chars += '0123456789';
+            if (this.includeSpecialChars) chars += '!@#$%^&*()_+~`|}{[]:;?><,./-=';
+
+            if (chars === '') {
+                alert('Please select at least one character set.');
+                return;
+            }
+
             let password = '';
             for (let i = 0; i < this.passwordLength; i++) {
                 password += chars.charAt(Math.floor(Math.random() * chars.length));
@@ -175,6 +209,7 @@ export default {
     display: table;
     cursor: pointer;
     transition: .3s ease all;
+    margin-top: 10px;
 }
 
 .primary-btn:hover {
@@ -343,4 +378,22 @@ export default {
     font-size: 1.1rem;
     transform: translateY(2px);
 }
+
+/*
+    New Features
+*/
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 5px;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: 8px;
+}
+
 </style>
