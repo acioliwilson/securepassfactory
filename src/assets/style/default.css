@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+:root {
+    /*
+        Colors
+    */
+    --ocean-dark: #202D53;
+    --ocean-dark-hover: #2d3d6d;
+    --primary: #2450D6;
+    --primary-hover: #3563ee;
+    --gray: #9C9FAA;
+    --light-gray: #EAEAEA;
+    --light: #F7F7F7;
+    --success-color: #19db53;
+
+    /*
+        Dimensions
+    */
+    --default-size: 1rem;
+    --title: 1.875rem;
+    --cta-size: 1.2rem;
+}
+
+body {
+    font-family: "Ubuntu Mono", monospace;
+    font-size: 16px;
+    color: var(--ocean-dark);
+    line-height: 1.7;
+    margin: 0;
+    padding: 0;
+    width: 100dvw;
+    min-height: 100dvh;
+}
+
+/* Chrome, Safari, Edge and Opera */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+input:focus { outline: none; }
+
+.ubuntu-mono-regular {
+    font-family: "Ubuntu Mono", monospace;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.ubuntu-mono-bold {
+    font-family: "Ubuntu Mono", monospace;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.ubuntu-mono-regular-italic {
+    font-family: "Ubuntu Mono", monospace;
+    font-weight: 400;
+    font-style: italic;
+}
+
+.ubuntu-mono-bold-italic {
+    font-family: "Ubuntu Mono", monospace;
+    font-weight: 700;
+    font-style: italic;
+}
+
+.d-flex { display: flex; }
+.align-items-center { align-items: center; }
+.justify-content-center { justify-content: center; }
+.gap-1 { gap: 10px; }
+.gap-2 { gap: 20px; }
+.gap-3 { gap: 30px; }
+.gap-4 { gap: 40px; }
+.gap-5 { gap: 50px; }
