@@ -1,68 +1,119 @@
 <template>
-<div class="general-wrapper">
-    <div class="bin-target"></div>
-    <div class="container">
-        <div class="logo">
-            <img src="@/assets/v2/logo-icon.png" />
-            <div class="logo-text">
-                <span class="bolder">SecurePass</span>
-                <div class="d-flex gap-1 align-items-center">
-                    <span>Factory</span>
-                    <span>***</span>
+    <div class="general-wrapper">
+        <div class="bin-target"></div>
+        <div class="container">
+            <div class="logo">
+                <img src="@/assets/v2/logo-icon.png" />
+                <div class="logo-text">
+                    <span class="bolder">SecurePass</span>
+                    <div class="d-flex gap-1 align-items-center">
+                        <span>Factory</span>
+                        <span>***</span>
+                    </div>
                 </div>
             </div>
+    
+            <p class="presentation">Shield yourself from hackers: Use strong, generated passwords.</p>
+    
+            <main class="panel">
+                <div class="instructions">
+                    <span>Please choose character options:</span>
+                </div>
+                <div class="options">
+                    <div :class="['button', { deactived: !includeUppercase }]" @click="toggleOption('uppercase')" title="Uppercase">
+                        <span class="uppercase">ABC</span>
+                    </div>
+                    <div :class="['button', { deactived: !includeLowercase }]" @click="toggleOption('lowercase')" title="Lowercase">
+                        <span class="lowercase">abc</span>
+                    </div>
+                    <div :class="['button', { deactived: !includeNumbers }]" @click="toggleOption('numbers')" title="Numbers">
+                        <span class="numbers">123</span>
+                    </div>
+                    <div :class="['button', { deactived: !includeSpecialChars }]" @click="toggleOption('specialChars')" title="Special Characters">
+                        <span class="symbols">%$#</span>
+                    </div>
+                </div>
+                <div class="password-lenght">
+                    <span>Password Length:</span>
+                    <div class="d-flex align-items-center gap-1 w-100">
+                        <input type="range" class="pass-lenght-range" min="1" max="24" v-model="passwordLength">
+                        <span>{{ passwordLength }}</span>
+                    </div>
+                </div>
+                <button type="button" class="btn-gen" @click="generatePassword">Generate Password</button>
+            </main>
+            <img src="@/assets/v2/divisor.svg" class="divisor">
+            <section class="generated-password">
+                <p>Generated Strong Password</p>
+                <input type="text" class="generated-password-input" :value="generatedPassword" disabled>
+                <button class="secondary-btn-v2" type="button" @click="copyPassword">
+                    <span>{{ isCopied ? 'Copied!' : 'Copy Password' }}</span>
+                </button>
+            </section>
+            <footer>
+                <span>
+                    Made with 🤍 by
+                </span>
+                <div class="github">
+                    <ion-icon name="logo-github"></ion-icon>
+                    <span>acioliwilson</span>
+                </div>
+            </footer>
         </div>
-
-        <p class="presentation">Shield yourself from hackers: Use strong, generated passwords.</p>
-
-        <main class="panel">
-            <div class="instructions">
-                <span>Please choose character options:</span>
-            </div>
-            <div class="options">
-                <div class="button" title="Uppercase">
-                    <span class="uppercase">ABC</span>
-                </div>
-                <div class="button" title="Lowercase">
-                    <span class="lowercase">abc</span>
-                </div>
-                <div class="button" title="Numbers">
-                    <span class="numbers">123</span>
-                </div>
-                <div class="button deactived" title="Especial Characters">
-                    <span class="symbols">%$#</span>
-                </div>
-            </div>
-            <div class="password-lenght">
-                <span>Password Lenght:</span>
-                <div class="d-flex align-items-center gap-1 w-100">
-                    <input type="range" class="pass-lenght-range" min="1" max="24" id="rangeInput">
-                    <span>12</span>
-                </div>
-            </div>
-            <button type="button" class="btn-gen">Generate Password</button>
-        </main>
-        <img src="@/assets/v2/divisor.svg" class="divisor">
-        <section class="generated-password">
-            <p>Generated Strong Password</p>
-            <input type="text" class="generated-password-input" disabled value="r7sNWlLw7UuX">
-            <button class="secondary-btn-v2" type="button">
-                <span>Copy Password</span>
-            </button>
-        </section>
-        <footer>
-            <span>
-                Maded with 🤍 by
-            </span>
-            <div class="github">
-                <ion-icon name="logo-github"></ion-icon>
-                <span>acioliwilson</span>
-            </div>
-
-        </footer>
     </div>
-</div>
-</template>
+    </template>
+    
+    <script>
+    export default {
+        data() {
+            return {
+                passwordLength: 12,
+                generatedPassword: '',
+                isCopied: false,
+                includeUppercase: true,
+                includeLowercase: true,
+                includeNumbers: true,
+                includeSpecialChars: false // Initially deactivated in the frontend
+            }
+        },
+        methods: {
+            toggleOption(option) {
+                if (option === 'uppercase') this.includeUppercase = !this.includeUppercase;
+                if (option === 'lowercase') this.includeLowercase = !this.includeLowercase;
+                if (option === 'numbers') this.includeNumbers = !this.includeNumbers;
+                if (option === 'specialChars') this.includeSpecialChars = !this.includeSpecialChars;
+            },
+            generatePassword() {
+                let chars = '';
+                if (this.includeUppercase) chars += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                if (this.includeLowercase) chars += 'abcdefghijklmnopqrstuvwxyz';
+                if (this.includeNumbers) chars += '0123456789';
+                if (this.includeSpecialChars) chars += '!@#$%^&*()_+~`|}{[]:;?><,./-=';
+    
+                if (chars === '') {
+                    alert('Please select at least one character set.');
+                    return;
+                }
+    
+                let password = '';
+                for (let i = 0; i < this.passwordLength; i++) {
+                    password += chars.charAt(Math.floor(Math.random() * chars.length));
+                }
+                this.generatedPassword = password;
+            },
+            copyPassword() {
+                navigator.clipboard.writeText(this.generatedPassword).then(() => {
+                    this.isCopied = true;
+                    setTimeout(() => {
+                        this.isCopied = false;
+                    }, 2000); // Reset after 2 seconds
+                });
+            }
+        }
+    }
+    </script>
+    
+    
 
 <style lang="css" scoped>
 .general-wrapper {
