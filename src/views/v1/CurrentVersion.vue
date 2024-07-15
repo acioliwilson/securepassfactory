@@ -64,9 +64,11 @@
         </div>
     </div>
 </div>
-<div class="info-new-version">
-    <span>A new version is available! Update now to v2.0 for the latest features and improvements.</span>
-</div>
+<router-link to="/v2">
+    <div class="info-new-version">
+        <span>A new version is available! Update now to v2.0 for the latest features and improvements.</span>
+    </div>
+</router-link>
 </template>
 
   
@@ -395,17 +397,20 @@ export default {
     left: 50%;
     transform: translateX(-50%);
     z-index: 1000;
-    background: var(--primary);
+    background: orange;
     color: var(--light);
     padding: 7px 32px;
     border-radius: 10px;
-    box-shadow: 1px 1px 20px rgba(36, 80, 214, .2);
+    box-shadow: 1px 1px 20px rgba(243, 115, 30, 0.2);
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-@media screen and (max-width: 300px) {
+@media screen and (max-width: 500px) {
     .info-new-version {
-        max-width: 300px !important;
+        width: 80%;
     }
 }
 </style>
