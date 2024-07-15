@@ -64,6 +64,9 @@
         </div>
     </div>
 </div>
+<div class="info-new-version">
+    <span>A new version is available! Update now to v2.0 for the latest features and improvements.</span>
+</div>
 </template>
 
   
@@ -384,5 +387,25 @@ export default {
     align-items: center;
     cursor: pointer;
     margin-bottom: 8px;
+}
+
+.info-new-version {
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    background: var(--primary);
+    color: var(--light);
+    padding: 7px 32px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 20px rgba(36, 80, 214, .2);
+    text-align: center;
+}
+
+@media screen and (max-width: 300px) {
+    .info-new-version {
+        max-width: 300px !important;
+    }
 }
 </style>

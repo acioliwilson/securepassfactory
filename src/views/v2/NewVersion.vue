@@ -1,119 +1,118 @@
 <template>
-    <div class="general-wrapper">
-        <div class="bin-target"></div>
-        <div class="container">
-            <div class="logo">
-                <img src="@/assets/v2/logo-icon.png" />
-                <div class="logo-text">
-                    <span class="bolder">SecurePass</span>
-                    <div class="d-flex gap-1 align-items-center">
-                        <span>Factory</span>
-                        <span>***</span>
-                    </div>
+<div class="general-wrapper">
+    <div class="bin-target"></div>
+    <div class="container">
+        <div class="logo">
+            <img src="@/assets/v2/logo-icon.png" />
+            <div class="logo-text">
+                <span class="bolder">SecurePass</span>
+                <div class="d-flex gap-1 align-items-center">
+                    <span>Factory</span>
+                    <span>***</span>
                 </div>
             </div>
-    
-            <p class="presentation">Shield yourself from hackers: Use strong, generated passwords.</p>
-    
-            <main class="panel">
-                <div class="instructions">
-                    <span>Please choose character options:</span>
-                </div>
-                <div class="options">
-                    <div :class="['button', { deactived: !includeUppercase }]" @click="toggleOption('uppercase')" title="Uppercase">
-                        <span class="uppercase">ABC</span>
-                    </div>
-                    <div :class="['button', { deactived: !includeLowercase }]" @click="toggleOption('lowercase')" title="Lowercase">
-                        <span class="lowercase">abc</span>
-                    </div>
-                    <div :class="['button', { deactived: !includeNumbers }]" @click="toggleOption('numbers')" title="Numbers">
-                        <span class="numbers">123</span>
-                    </div>
-                    <div :class="['button', { deactived: !includeSpecialChars }]" @click="toggleOption('specialChars')" title="Special Characters">
-                        <span class="symbols">%$#</span>
-                    </div>
-                </div>
-                <div class="password-lenght">
-                    <span>Password Length:</span>
-                    <div class="d-flex align-items-center gap-1 w-100">
-                        <input type="range" class="pass-lenght-range" min="1" max="24" v-model="passwordLength">
-                        <span>{{ passwordLength }}</span>
-                    </div>
-                </div>
-                <button type="button" class="btn-gen" @click="generatePassword">Generate Password</button>
-            </main>
-            <img src="@/assets/v2/divisor.svg" class="divisor">
-            <section class="generated-password">
-                <p>Generated Strong Password</p>
-                <input type="text" class="generated-password-input" :value="generatedPassword" disabled>
-                <button class="secondary-btn-v2" type="button" @click="copyPassword">
-                    <span>{{ isCopied ? 'Copied!' : 'Copy Password' }}</span>
-                </button>
-            </section>
-            <footer>
-                <span>
-                    Made with 🤍 by
-                </span>
-                <div class="github">
-                    <ion-icon name="logo-github"></ion-icon>
-                    <span>acioliwilson</span>
-                </div>
-            </footer>
         </div>
+
+        <p class="presentation">Shield yourself from hackers: Use strong, generated passwords.</p>
+
+        <main class="panel">
+            <div class="instructions">
+                <span>Please choose character options:</span>
+            </div>
+            <div class="options">
+                <div :class="['button', { deactived: !includeUppercase }]" @click="toggleOption('uppercase')" title="Uppercase">
+                    <span class="uppercase">ABC</span>
+                </div>
+                <div :class="['button', { deactived: !includeLowercase }]" @click="toggleOption('lowercase')" title="Lowercase">
+                    <span class="lowercase">abc</span>
+                </div>
+                <div :class="['button', { deactived: !includeNumbers }]" @click="toggleOption('numbers')" title="Numbers">
+                    <span class="numbers">123</span>
+                </div>
+                <div :class="['button', { deactived: !includeSpecialChars }]" @click="toggleOption('specialChars')" title="Special Characters">
+                    <span class="symbols">%$#</span>
+                </div>
+            </div>
+            <div class="password-lenght">
+                <span>Password Length:</span>
+                <div class="d-flex align-items-center gap-1 w-100">
+                    <input type="range" class="pass-lenght-range" min="1" max="24" v-model="passwordLength">
+                    <span>{{ passwordLength }}</span>
+                </div>
+            </div>
+            <button type="button" class="btn-gen" @click="generatePassword">Generate Password</button>
+        </main>
+        <img src="@/assets/v2/divisor.svg" class="divisor">
+        <section class="generated-password">
+            <p>Generated Strong Password</p>
+            <input type="text" class="generated-password-input" :value="generatedPassword" disabled>
+            <button class="secondary-btn-v2" type="button" @click="copyPassword">
+                <span>{{ isCopied ? 'Copied!' : 'Copy Password' }}</span>
+            </button>
+        </section>
+        <footer>
+            <span>
+                Made with 🤍 by
+            </span>
+            <div class="github">
+                <ion-icon name="logo-github"></ion-icon>
+                <span>acioliwilson</span>
+            </div>
+        </footer>
     </div>
-    </template>
+</div>
+</template>
+
     
-    <script>
-    export default {
-        data() {
-            return {
-                passwordLength: 12,
-                generatedPassword: '',
-                isCopied: false,
-                includeUppercase: true,
-                includeLowercase: true,
-                includeNumbers: true,
-                includeSpecialChars: false // Initially deactivated in the frontend
-            }
+<script>
+export default {
+    data() {
+        return {
+            passwordLength: 12,
+            generatedPassword: '',
+            isCopied: false,
+            includeUppercase: true,
+            includeLowercase: true,
+            includeNumbers: true,
+            includeSpecialChars: false // Initially deactivated in the frontend
+        }
+    },
+    methods: {
+        toggleOption(option) {
+            if (option === 'uppercase') this.includeUppercase = !this.includeUppercase;
+            if (option === 'lowercase') this.includeLowercase = !this.includeLowercase;
+            if (option === 'numbers') this.includeNumbers = !this.includeNumbers;
+            if (option === 'specialChars') this.includeSpecialChars = !this.includeSpecialChars;
         },
-        methods: {
-            toggleOption(option) {
-                if (option === 'uppercase') this.includeUppercase = !this.includeUppercase;
-                if (option === 'lowercase') this.includeLowercase = !this.includeLowercase;
-                if (option === 'numbers') this.includeNumbers = !this.includeNumbers;
-                if (option === 'specialChars') this.includeSpecialChars = !this.includeSpecialChars;
-            },
-            generatePassword() {
-                let chars = '';
-                if (this.includeUppercase) chars += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                if (this.includeLowercase) chars += 'abcdefghijklmnopqrstuvwxyz';
-                if (this.includeNumbers) chars += '0123456789';
-                if (this.includeSpecialChars) chars += '!@#$%^&*()_+~`|}{[]:;?><,./-=';
-    
-                if (chars === '') {
-                    alert('Please select at least one character set.');
-                    return;
-                }
-    
-                let password = '';
-                for (let i = 0; i < this.passwordLength; i++) {
-                    password += chars.charAt(Math.floor(Math.random() * chars.length));
-                }
-                this.generatedPassword = password;
-            },
-            copyPassword() {
-                navigator.clipboard.writeText(this.generatedPassword).then(() => {
-                    this.isCopied = true;
-                    setTimeout(() => {
-                        this.isCopied = false;
-                    }, 2000); // Reset after 2 seconds
-                });
+        generatePassword() {
+            let chars = '';
+            if (this.includeUppercase) chars += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            if (this.includeLowercase) chars += 'abcdefghijklmnopqrstuvwxyz';
+            if (this.includeNumbers) chars += '0123456789';
+            if (this.includeSpecialChars) chars += '!@#$%^&*()_+~`|}{[]:;?><,./-=';
+
+            if (chars === '') {
+                alert('Please select at least one character set.');
+                return;
             }
+
+            let password = '';
+            for (let i = 0; i < this.passwordLength; i++) {
+                password += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            this.generatedPassword = password;
+        },
+        copyPassword() {
+            navigator.clipboard.writeText(this.generatedPassword).then(() => {
+                this.isCopied = true;
+                setTimeout(() => {
+                    this.isCopied = false;
+                }, 2000); // Reset after 2 seconds
+            });
         }
     }
-    </script>
-    
-    
+}
+</script>
 
 <style lang="css" scoped>
 .general-wrapper {
@@ -228,6 +227,7 @@ div.instructions {
     gap: 25px;
     margin-top: 15px;
 }
+
 .button {
     width: 55px;
     height: 55px;
@@ -247,10 +247,21 @@ div.instructions {
 }
 
 @keyframes bounceIn {
-    0% { transform: scale(1); }
-    80% { transform: scale(1.1); }
-    90% { transform: scale(.9); }
-    100% { transform: scale(1); }
+    0% {
+        transform: scale(1);
+    }
+
+    80% {
+        transform: scale(1.1);
+    }
+
+    90% {
+        transform: scale(.9);
+    }
+
+    100% {
+        transform: scale(1);
+    }
 }
 
 .button span {
@@ -301,7 +312,6 @@ div.instructions {
     display: table;
 }
 
-
 input[type=range] {
     -webkit-appearance: none;
     width: 100%;
@@ -309,23 +319,23 @@ input[type=range] {
     background: #6D71AC;
     border-radius: 900px;
     outline: none;
-  }
-  
-  input[type=range]::-webkit-slider-runnable-track {
-    width: 100%;
-    height: 5px;
-    background: #6D71AC;
-    border-radius: 900px;
-  }
-  
-  input[type=range]::-moz-range-track {
-    width: 100%;
-    height: 5px;
-    background: #6D71AC;
-    border-radius: 900px;
-  }
+}
 
-  input[type=range]::-webkit-slider-thumb {
+input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 5px;
+    background: #6D71AC;
+    border-radius: 900px;
+}
+
+input[type=range]::-moz-range-track {
+    width: 100%;
+    height: 5px;
+    background: #6D71AC;
+    border-radius: 900px;
+}
+
+input[type=range]::-webkit-slider-thumb {
     -webkit-appearance: none;
     width: 15px;
     height: 15px;
@@ -334,33 +344,33 @@ input[type=range] {
     cursor: pointer;
     margin-top: -6px;
     box-shadow: 1px 1px 20px rgba(180, 18, 237, .6);
-  }
-  
-  input[type=range]::-moz-range-thumb {
+}
+
+input[type=range]::-moz-range-thumb {
     width: 20px;
     height: 20px;
     background: #6D71AC;
     border-radius: 50%;
     cursor: pointer;
-  }
+}
 
-  input[type=range]::-webkit-slider-runnable-track {
+input[type=range]::-webkit-slider-runnable-track {
     background: #6D71AC;
-  }
-  
-  input[type=range]::-moz-range-progress {
-    background: #6D71AC;
-  }
+}
 
-  input[type=range]::-moz-range-track {
+input[type=range]::-moz-range-progress {
+    background: #6D71AC;
+}
+
+input[type=range]::-moz-range-track {
     background: #6D71AC
-  }
+}
 
-  .w-100 {
+.w-100 {
     width: 100%;
-  }
+}
 
-  .btn-gen {
+.btn-gen {
     padding: 14px 32px;
     border-radius: 15px;
     background: #B412ED;
@@ -375,20 +385,22 @@ input[type=range] {
     max-width: 300px;
     margin: 0 auto;
     transition: .4s ease all;
-  }
-  .btn-gen:hover {
+}
+
+.btn-gen:hover {
     animation: .3s bounceIn ease forwards;
     background: #be0dff;
-  }
+}
 
-  .generated-password {
+.generated-password {
     display: flex;
     flex-direction: column;
     gap: 10px;
     max-width: 400px;
     margin: 0 auto;
-  }
-  .generated-password p {
+}
+
+.generated-password p {
     color: #FFF;
     font-weight: 700;
     font-family: 'Ubuntu Mono', monospace;
@@ -397,8 +409,9 @@ input[type=range] {
     margin: 0 auto !important;
     padding: 0 0 15px 0;
     line-height: 1;
-  }
-  .generated-password-input {
+}
+
+.generated-password-input {
     text-align: center;
     padding: 15px 32px;
     border-radius: 15px;
@@ -410,9 +423,9 @@ input[type=range] {
     font-weight: 700;
     letter-spacing: 1px;
     text-shadow: 1px 1px 15px rgba(180, 18, 237, .7);
-  }
+}
 
-  .secondary-btn-v2 {
+.secondary-btn-v2 {
     padding: 15px 32px;
     border-radius: 15px;
     background: #6B2DD6;
@@ -425,13 +438,14 @@ input[type=range] {
     font-weight: 700;
     margin-top: 10px;
     transition: .3s ease all;
-  }
-  .secondary-btn-v2:hover {
+}
+
+.secondary-btn-v2:hover {
     animation: .4s bounceIn ease forwards;
     background: #7e12fa;
-  }
+}
 
-  footer {
+footer {
     width: 100%;
     display: inline-flex;
     gap: 7px;
@@ -442,33 +456,35 @@ input[type=range] {
     color: #C2D1FE;
     margin-top: 30px;
     letter-spacing: .5px;
-  }
-  .github {
+}
+
+.github {
     display: flex;
     align-items: center;
     gap: 5px;
     color: #DE81FF;
-  }
+}
 
-  .divisor {
+.divisor {
     margin: 30px auto;
-  }
+}
 
-  @media screen and (max-width: 750px) {
+@media screen and (max-width: 750px) {
     .general-wrapper {
         width: 100% !important;
         display: flex;
         overflow-x: hidden !important;
     }
+
     p.presentation {
         width: 100% !important;
     }
+
     .divisor {
         width: 100%;
         height: auto;
         margin: 0 auto !important;
         padding: 30px 0;
     }
-  }
-
+}
 </style>
