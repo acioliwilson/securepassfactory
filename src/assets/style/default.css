@@ -21,6 +21,23 @@
     --cta-size: 1.2rem;
 }
 
+::-webkit-scrollbar {
+    width: 3px;
+}
+
+::-webkit-scrollbar-track {
+    background: #50046b;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #b412ed;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #9512ed;
+}
+
 body {
     font-family: "Ubuntu Mono", monospace;
     font-size: 16px;
