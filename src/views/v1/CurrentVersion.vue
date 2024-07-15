@@ -128,11 +128,12 @@ export default {
 <style lang="css" scoped>
 .homescreen {
     width: 100%;
-    min-height: 100vh;
+    
     display: flex;
     justify-content: center;
     align-items: center;
     background: #FFF;
+    padding: 100px 0 !important;
 }
 
 .logo {

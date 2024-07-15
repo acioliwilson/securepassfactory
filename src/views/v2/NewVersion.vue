@@ -120,7 +120,7 @@ export default {
     justify-content: center;
     align-items: center;
     width: 100vw;
-    height: 100dvh;
+    min-height: 100dvh;
     background-image: linear-gradient(320deg, #202D53, #4A2269);
     overflow-x: hidden;
 }
@@ -474,6 +474,7 @@ footer {
         width: 100% !important;
         display: flex;
         overflow-x: hidden !important;
+        padding: 50px 0;
     }
 
     p.presentation {
