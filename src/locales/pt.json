@@ -1,0 +1,11 @@
+{
+    "title": "Fábrica de Senhas Seguras",
+    "presentation": "Proteja-se contra hackers: Use senhas fortes e geradas.",
+    "instructions": "Por favor, escolha as opções de caracteres:",
+    "passwordLength": "Comprimento da Senha:",
+    "generatePassword": "Gerar Senha",
+    "generatedPassword": "Senha Forte Gerada",
+    "copyPassword": "Copiar Senha",
+    "copied": "Copiado!",
+    "author": "Feito com 🤍 por"
+}

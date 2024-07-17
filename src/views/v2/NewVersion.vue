@@ -1,23 +1,33 @@
 <template>
 <div class="general-wrapper">
+    <div class="language-selector">
+        <select v-model="selectedLanguage" @change="changeLanguage">
+            <option value="en">
+                EN
+            </option>
+            <option value="pt">
+                PT
+            </option>
+        </select>
+    </div>
     <div class="bin-target"></div>
     <div class="container">
         <div class="logo">
             <img src="@/assets/v2/logo-icon.png" />
             <div class="logo-text">
-                <span class="bolder">SecurePass</span>
+                <span class="bolder">{{ t('logoTitle') }}</span>
                 <div class="d-flex gap-1 align-items-center">
-                    <span>Factory</span>
+                    <span>{{ t('logoSubtitle') }}</span>
                     <span>***</span>
                 </div>
             </div>
         </div>
 
-        <p class="presentation">Shield yourself from hackers: Use strong, generated passwords.</p>
+        <p class="presentation">{{ t('presentation') }}</p>
 
         <main class="panel">
             <div class="instructions">
-                <span>Please choose character options:</span>
+                <span>{{ t('instructions') }}</span>
             </div>
             <div class="options">
                 <div :class="['button', { deactived: !includeUppercase }]" @click="toggleOption('uppercase')" title="Uppercase">
@@ -34,27 +44,27 @@
                 </div>
             </div>
             <div class="password-lenght">
-                <span>Password Length:</span>
+                <span>{{ t('passwordLength') }}</span>
                 <div class="d-flex align-items-center gap-1 w-100">
                     <input type="range" class="pass-lenght-range" min="1" max="24" v-model="passwordLength">
                     <span>{{ passwordLength }}</span>
                 </div>
             </div>
-            <button type="button" class="btn-gen" @click="generatePassword">Generate Password</button>
+            <button type="button" class="btn-gen" @click="generatePassword">{{ t('generatePassword') }}</button>
         </main>
         <img src="@/assets/v2/divisor.svg" class="divisor">
         <section class="generated-password">
-            <p>Generated Strong Password</p>
+            <p>{{ t('generatedPassword') }}</p>
             <input type="text" class="generated-password-input" :value="generatedPassword" disabled>
             <button class="secondary-btn-v2" type="button" @click="copyPassword">
-                <span>{{ isCopied ? 'Copied!' : 'Copy Password' }}</span>
+                <span>{{ isCopied ? t('copied') : t('copyPassword') }}</span>
             </button>
         </section>
         <footer>
             <span>
-                Made with 🤍 by
+                {{ t('author') }}
             </span>
-            <div class="github">
+            <div class="github" @click="githubRedirect">
                 <ion-icon name="logo-github"></ion-icon>
                 <span>acioliwilson</span>
             </div>
@@ -65,7 +75,20 @@
 
     
 <script>
+import { ref } from 'vue';
+import { useI18n } from 'vue-i18n';
+
 export default {
+    setup() {
+        const { t, locale } = useI18n();
+        const selectedLanguage = ref(locale.value);
+
+        const changeLanguage = () => {
+        locale.value = selectedLanguage.value;
+        };
+
+        return { t, selectedLanguage, changeLanguage };
+    },
     data() {
         return {
             passwordLength: 12,
@@ -74,7 +97,7 @@ export default {
             includeUppercase: true,
             includeLowercase: true,
             includeNumbers: true,
-            includeSpecialChars: false // Initially deactivated in the frontend
+            includeSpecialChars: false
         }
     },
     methods: {
@@ -89,7 +112,7 @@ export default {
             if (this.includeUppercase) chars += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
             if (this.includeLowercase) chars += 'abcdefghijklmnopqrstuvwxyz';
             if (this.includeNumbers) chars += '0123456789';
-            if (this.includeSpecialChars) chars += '!@#$%^&*()_+~`|}{[]:;?><,./-=';
+            if (this.includeSpecialChars) chars += '!@#$%^&*()_+?';
 
             if (chars === '') {
                 alert('Please select at least one character set.');
@@ -109,6 +132,9 @@ export default {
                     this.isCopied = false;
                 }, 2000); // Reset after 2 seconds
             });
+        },
+        githubRedirect() {
+            window.location.href = 'https://github.com/acioliwilson'
         }
     }
 }
@@ -463,6 +489,7 @@ footer {
     align-items: center;
     gap: 5px;
     color: #DE81FF;
+    cursor: pointer;
 }
 
 .divisor {
@@ -487,5 +514,30 @@ footer {
         margin: 0 auto !important;
         padding: 30px 0;
     }
+}
+
+.language-selector {
+    position: absolute;
+    top: 2.4rem;
+    right: 2rem;
+    z-index: 2000;
+}
+.language-selector select {
+    padding: 10px 5px;
+    border-radius: 6px;
+    border: 1px solid #ce58f8;
+    background: rgba(180, 18, 237, .1);
+    color: #FFF;
+    font-size: 15px;
+    outline: none;
+    box-shadow: 2px 2px 20px rgba(0, 0, 0, .1);
+    font-family: 'Ubuntu Mono', monospace;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.language-selector select option {
+    border: 1px solid #ce58f8 !important;
+    background: rgba(180, 18, 237, .1) !important;
 }
 </style>

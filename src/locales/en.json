@@ -1,0 +1,13 @@
+{
+    "title": "SecurePass Factory",
+    "logoTitle": "SecurePass",
+    "logoSubtitle": "Factory",
+    "presentation": "Shield yourself from hackers: Use strong, generated passwords.",
+    "instructions": "Please choose character options:",
+    "passwordLength": "Password Length:",
+    "generatePassword": "Generate Password",
+    "generatedPassword": "Generated Strong Password",
+    "copyPassword": "Copy Password",
+    "copied": "Copied!",
+    "author": "Maded with 🤍 by"
+}
